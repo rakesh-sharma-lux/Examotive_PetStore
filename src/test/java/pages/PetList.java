@@ -3,6 +3,7 @@ package pages;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -58,8 +59,9 @@ public class PetList {
 		 */
 		  System.out.println(tableData.size());
 		  for(WebElement e: tableData) {
-			  System.out.println(e.getText());
+			  //System.out.println(e.getText());
 			  petName.add(e.getText());
+			  //System.out.println(petName.size());
 		  }
 			  
 //		  Optional<String> findAny = tableData.stream().map(e -> e.getText()).filter(td -> td.equals(name)).findAny();
@@ -68,6 +70,22 @@ public class PetList {
 		  return petName.indexOf(name);
 		  
 	}
+	 
+	 public void updatePetList(String name, String newName, String newstatus) {
+		 int index = locatePetIndex(name);
+		 if(index != -1) {
+			 WebElement e = tableRows.get(index).findElement(By.xpath("//td[1]/span"));
+			 e.click();
+			 e.sendKeys(newName);
+			 
+			 WebElement e2 = tableRows.get(index).findElement(By.xpath("//td[2]/span"));
+			 e2.click();
+			 e2.sendKeys(newstatus);
+			 e.click();
+		 }
+	 }
+	 
+	 
 	 
 	
 	
