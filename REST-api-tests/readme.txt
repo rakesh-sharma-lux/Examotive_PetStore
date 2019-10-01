@@ -1,4 +1,4 @@
-The test are created for GET, POST, PUT and DELETE requests of the pet-store application for searching, adding, updatig and deleting pet.
+The project contains tests related to GET, POST, PUT and DELETE requests of the pet-store application for searching, adding, updating and deleting pet.
 
 Import the project and run the collection. 
 
