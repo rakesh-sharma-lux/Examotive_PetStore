@@ -2,6 +2,7 @@ package pages;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -10,6 +11,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import org.testng.Assert;
+import org.yaml.snakeyaml.scanner.Constant;
 
 public class PetList {
 	
@@ -28,7 +30,15 @@ public class PetList {
 	List<WebElement> tableRows;
 	
 	@FindBy(xpath = "//table/tbody/tr/td[1]/span")
-	List<WebElement> tableData;
+	List<WebElement> tableDataName;
+	
+	@FindBy(xpath = "//table/tbody/tr/td[1]/input")
+	List<WebElement> tableDataNameInput;
+	
+	
+	
+	@FindBy(xpath = "//table/tbody/tr/td[2]")
+	List<WebElement> tableDataStatus;
 	
 	
 	public PetList(WebDriver driver) {
@@ -57,8 +67,8 @@ public class PetList {
 		/*
 		 * for(int i=1;i<=tableRows.size();i++) petName.add(tableData.get(i).getText());
 		 */
-		  System.out.println(tableData.size());
-		  for(WebElement e: tableData) {
+		  System.out.println(tableDataName.size());
+		  for(WebElement e: tableDataName) {
 			  //System.out.println(e.getText());
 			  petName.add(e.getText());
 			  //System.out.println(petName.size());
@@ -74,14 +84,29 @@ public class PetList {
 	 public void updatePetList(String name, String newName, String newstatus) {
 		 int index = locatePetIndex(name);
 		 if(index != -1) {
-			 WebElement e = tableRows.get(index).findElement(By.xpath("//td[1]/span"));
-			 e.click();
-			 e.sendKeys(newName);
+			 System.out.println("index is : " + index);
+			 WebElement e = tableDataName.get(index);
+			 			 
+			 //..findElement(By.tagName("input"));
+				//	 tableRows.
+			 //System.out.println(e);
 			 
-			 WebElement e2 = tableRows.get(index).findElement(By.xpath("//td[2]/span"));
+			 //e.getTagName()
+			 e.click();
+			 e = tableDataNameInput.get(index);
+			 e.click();
+			 driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			 e.clear();
+			 driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+			 //e.getCssValue(arg0)
+			 System.out.println(newName);
+			 e.sendKeys(newName);
+			 System.out.println("exiting");
+			 
+			 /*WebElement e2 = tableRows.get(index).findElement(By.xpath("//td[2]/span"));
 			 e2.click();
 			 e2.sendKeys(newstatus);
-			 e.click();
+			 e.click();*/
 		 }
 	 }
 	 
